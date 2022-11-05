@@ -12,18 +12,24 @@ var __assign = (this && this.__assign) || function () {
 import { jsx as _jsx } from "react/jsx-runtime";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStateMachine } from "../hooks";
 var AutocompletePro = function (_a) {
-    var states = _a.states, change = _a.change;
-    var _b = useStateMachine(states), data = _b.data, nextState = _b.nextState;
+    var states = _a.states;
+    var _b = useStateMachine(states), data = _b.data, nextState = _b.nextState, change = _b.change, reset = _b.reset;
     var _c = useState(""), fullValue = _c[0], setValue = _c[1];
+    useEffect(function () {
+        if (fullValue === '') {
+            reset();
+        }
+    }, [fullValue]);
     return (_jsx(Autocomplete, { id: "free-solo-demo", freeSolo: true, disableClearable: true, value: fullValue, onInputChange: function (event, value) {
             //changeCondition(value);
-            nextState();
+            //nextState();
         }, onChange: function (event, value) {
             setValue("".concat(fullValue, " ").concat(value));
-            change === null || change === void 0 ? void 0 : change(value);
+            //change?.(value);
+            nextState();
         }, options: data ? data.map(function (item) { return item.value; }) : [], renderInput: function (params) { return _jsx(TextField, __assign({}, params)); } }));
 };
 export default AutocompletePro;

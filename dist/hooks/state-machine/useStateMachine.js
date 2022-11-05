@@ -1,18 +1,17 @@
-import { useState } from "react";
-var defaultState = {
-    type: "",
-    value: [],
-    callback: function () { },
-    next: ""
-};
+import { useContext, useEffect, useState } from "react";
+import { AutocompleteProContext } from "../../context";
 var useStateMachine = function (_a) {
     var init = _a.init, states = _a.states;
     var _b = useState(states[init !== null && init !== void 0 ? init : 0]), currentState = _b[0], setState = _b[1]; //init state
-    var _c = useState(defaultState), previous = _c[0], setPrevious = _c[1];
-    // useEffect(() => {
-    //   console.log(`Current State: `, currentState);
-    //   console.log(`Previous State: `, previous);
-    // }, [currentState, setState, previous, setPrevious]);
+    var _c = useState(null), previous = _c[0], setPrevious = _c[1];
+    var autocompleteContext = useContext(AutocompleteProContext);
+    useEffect(function () {
+        console.log("Current State: ", currentState);
+        console.log("Previous State: ", previous);
+    }, [currentState, setState, previous, setPrevious]);
+    useEffect(function () {
+        autocompleteContext === null || autocompleteContext === void 0 ? void 0 : autocompleteContext.updateProviderState(currentState);
+    }, [currentState, setState]);
     var findState = function (next) {
         var result = {
             type: "",
@@ -46,11 +45,16 @@ var useStateMachine = function (_a) {
             nextState();
         }
     };
+    var reset = function () {
+        setState(states[0]);
+        setPrevious(null);
+    };
     return {
         nextState: nextState,
         data: currentState.value,
         change: change,
-        state: currentState
+        state: currentState,
+        reset: reset
     };
 };
 export default useStateMachine;

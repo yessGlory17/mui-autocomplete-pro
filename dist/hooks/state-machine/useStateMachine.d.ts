@@ -8,6 +8,7 @@ interface ReturnUseStateMachine {
     data: Field[];
     change: (selectedValue: string) => void;
     state: State;
+    reset: () => void;
 }
 declare const useStateMachine: ({ init, states }: useStateMachineProps) => ReturnUseStateMachine;
 export default useStateMachine;
