@@ -26,7 +26,8 @@ const AutocompletePro = ({states }: AutocompleteProProps) => {
         }}
         onChange={(event, value) => {
           setValue(`${fullValue} ${value}`);
-          change?.(value);
+          //change?.(value);
+          nextState();
         }}
         options={data ? data.map((item) => item.value) : []}
         renderInput={(params) => <TextField {...params} />}
