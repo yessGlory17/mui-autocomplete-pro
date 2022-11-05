@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AutocompleteProContext } from "../../context";
 import { Field, State } from "./types";
 
 export type useStateMachineProps = {
@@ -18,10 +19,16 @@ const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMa
   const [currentState, setState] = useState<State>(states[init ?? 0]); //init state
   const [previous, setPrevious] = useState<State | null>(null);
 
+  const autocompleteContext = useContext(AutocompleteProContext);
+
   useEffect(() => {
     console.log(`Current State: `, currentState);
     console.log(`Previous State: `, previous);
   }, [currentState, setState, previous, setPrevious]);
+
+  useEffect(()=> {
+    autocompleteContext?.updateProviderState(currentState);
+  },[currentState, setState])
 
   const findState = (next: string) => {
     let result: State = {
