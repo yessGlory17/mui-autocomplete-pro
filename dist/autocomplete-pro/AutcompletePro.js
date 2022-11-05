@@ -15,7 +15,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useEffect, useState } from "react";
 import { useStateMachine } from "../hooks";
 var AutocompletePro = function (_a) {
-    var states = _a.states;
+    var states = _a.states, onChange = _a.onChange;
     var _b = useStateMachine(states), data = _b.data, nextState = _b.nextState, change = _b.change, reset = _b.reset;
     var _c = useState(""), fullValue = _c[0], setValue = _c[1];
     useEffect(function () {
@@ -28,6 +28,7 @@ var AutocompletePro = function (_a) {
             //nextState();
         }, onChange: function (event, value) {
             setValue("".concat(fullValue, " ").concat(value));
+            onChange === null || onChange === void 0 ? void 0 : onChange("".concat(fullValue, " ").concat(value));
             //change?.(value);
             nextState();
         }, options: data ? data.map(function (item) { return item.value; }) : [], renderInput: function (params) { return _jsx(TextField, __assign({}, params)); } }));
