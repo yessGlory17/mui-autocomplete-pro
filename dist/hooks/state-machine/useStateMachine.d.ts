@@ -1,5 +1,13 @@
+import { Field, State } from "./types";
 export declare type useStateMachineProps = {
-    state: any;
+    init: number;
+    states: State[];
 };
-declare const useStateMachine: () => void;
+interface ReturnUseStateMachine {
+    nextState: () => void;
+    data: Field[];
+    change: (selectedValue: string) => void;
+    state: State;
+}
+declare const useStateMachine: ({ init, states }: useStateMachineProps) => ReturnUseStateMachine;
 export default useStateMachine;

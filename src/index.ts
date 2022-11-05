@@ -1,7 +1,7 @@
 import {AutocompletePro} from './autocomplete-pro';
 import { sql } from './constants';
 import { useStateMachine } from './hooks';
-import { useStateMachineProps } from "./types";
+import { useStateMachineProps, Field, State,ValueFunction } from "./types";
 export {
   AutocompletePro,
   sql,
@@ -9,5 +9,8 @@ export {
 }
 
 export type {
-  useStateMachineProps
+  useStateMachineProps,
+  Field,
+  State,
+  ValueFunction
 }

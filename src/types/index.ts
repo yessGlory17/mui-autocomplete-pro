@@ -1,4 +1,7 @@
-import { useStateMachineProps } from "../hooks";
+import { useStateMachineProps, Field,State,ValueFunction } from "../hooks";
 export type {
-    useStateMachineProps
+    useStateMachineProps,
+    Field,
+    State,
+    ValueFunction
 }
