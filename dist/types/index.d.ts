@@ -1,4 +1,2 @@
 import { useStateMachineProps } from "../hooks";
-export type {
-    useStateMachineProps
-}
+export type { useStateMachineProps };

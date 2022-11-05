@@ -1,3 +1,6 @@
+export type useStateMachineProps = {
+    state: any;
+}
 const useStateMachine = () => {
 
 }

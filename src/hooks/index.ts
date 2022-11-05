@@ -1,4 +1,9 @@
-import useStateMachine from "./state-machine/useStateMachine";
+import useStateMachine, {useStateMachineProps} from "./state-machine/useStateMachine";
 export {
-    useStateMachine
+    useStateMachine,
+    
+}
+
+export type {
+    useStateMachineProps
 }
