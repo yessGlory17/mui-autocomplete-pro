@@ -13,17 +13,9 @@ interface ReturnUseStateMachine {
   state: State;
 }
 
-
-const defaultState: State = {
-  type: "",
-  value: [],
-  callback: () => {},
-  next: ""
-}
-
 const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMachine => {
   const [currentState, setState] = useState<State>(states[init ?? 0]); //init state
-  const [previous, setPrevious] = useState<State>(defaultState);
+  const [previous, setPrevious] = useState<State | null>(null);
 
   // useEffect(() => {
   //   console.log(`Current State: `, currentState);
