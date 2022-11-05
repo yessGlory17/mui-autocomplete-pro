@@ -1,7 +1,12 @@
 {
   "name": "mui-autocomplete-pro",
   "version": "0.1.0",
-  "private": true,
+  "author": {
+    "name"  : "Ozgur Kurucan",
+    "email" : "ozgurkurucan337@gmail.com",
+    "url"   : "https://github.com/yessGlory17"
+  },
+  "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
