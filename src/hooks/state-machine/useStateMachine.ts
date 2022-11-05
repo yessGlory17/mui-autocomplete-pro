@@ -11,6 +11,7 @@ interface ReturnUseStateMachine {
   data: Field[];
   change: (selectedValue: string) => void;
   state: State;
+  reset: () => void;
 }
 
 const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMachine => {
@@ -56,11 +57,17 @@ const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMa
     }
   };
 
+  const reset = () => {
+    setState(states[0]);
+    setPrevious(null);
+  }
+
   return {
     nextState,
     data: currentState.value,
     change,
-    state: currentState
+    state: currentState,
+    reset
   };
 }
 

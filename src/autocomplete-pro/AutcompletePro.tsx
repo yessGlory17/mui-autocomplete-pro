@@ -1,6 +1,6 @@
 import TextField  from "@mui/material/TextField";
 import Autocomplete  from "@mui/material/Autocomplete";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Field, useStateMachine, useStateMachineProps } from "../hooks";
 
 export type AutocompleteProProps = {
@@ -9,8 +9,15 @@ export type AutocompleteProProps = {
 }
 
 const AutocompletePro = ({states }: AutocompleteProProps) => {
-    const { data, nextState, change } = useStateMachine(states);
+    const { data, nextState, change, reset} = useStateMachine(states);
     const [fullValue, setValue] = useState<string>("");
+
+    useEffect(()=>{
+      if(fullValue === ''){
+        reset();
+      }
+    },[fullValue])
+
     return (
       <Autocomplete
         id="free-solo-demo"
