@@ -17,10 +17,10 @@ const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMa
   const [currentState, setState] = useState<State>(states[init ?? 0]); //init state
   const [previous, setPrevious] = useState<State | null>(null);
 
-  // useEffect(() => {
-  //   console.log(`Current State: `, currentState);
-  //   console.log(`Previous State: `, previous);
-  // }, [currentState, setState, previous, setPrevious]);
+  useEffect(() => {
+    console.log(`Current State: `, currentState);
+    console.log(`Previous State: `, previous);
+  }, [currentState, setState, previous, setPrevious]);
 
   const findState = (next: string) => {
     let result: State = {
