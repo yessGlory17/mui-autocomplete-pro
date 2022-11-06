@@ -6,11 +6,10 @@ import { Field, useStateMachine, useStateMachineProps } from "../hooks";
 export type AutocompleteProProps = {
   states: useStateMachineProps;
   onChange?: (value: string) => void;
-  //change?:(selectedValue: string) => void;
 }
 
 const AutocompletePro = ({states, onChange, ...params }: AutocompleteProProps) => {
-    const { data, nextState, change, reset, state} = useStateMachine(states);
+    const { data, nextState, change, reset, state, updateSelected} = useStateMachine(states);
     const [fullValue, setValue] = useState<string>("");
 
     useEffect(()=>{
@@ -43,6 +42,7 @@ const AutocompletePro = ({states, onChange, ...params }: AutocompleteProProps) =
         onChange={(event, value) => {
           setValue(`${fullValue} ${value}`);
           onChange?.(`${fullValue} ${value}`)
+          updateSelected(value);
           if(state.onSelectedCondition){
             change?.(value);
           }else{

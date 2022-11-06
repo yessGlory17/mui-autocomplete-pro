@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Field, State } from "./types";
 export declare type useStateMachineProps = {
     init: number;
@@ -10,6 +11,7 @@ interface ReturnUseStateMachine {
     change: (selectedValue: string) => void;
     state: State;
     reset: () => void;
+    updateSelected: React.Dispatch<unknown>;
 }
 declare const useStateMachine: ({ init, states }: useStateMachineProps) => ReturnUseStateMachine;
 export default useStateMachine;

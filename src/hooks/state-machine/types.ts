@@ -3,7 +3,7 @@ export type Field = {
     id: number;
 }
 
-export type ValueFunction = (previous: State | null, selected: State) => Field[];
+export type ValueFunction = (previous: State | null, selected: unknown) => Field[];
 
 export type State = {
     type: string;

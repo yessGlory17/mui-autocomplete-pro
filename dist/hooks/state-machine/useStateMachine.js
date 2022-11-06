@@ -4,6 +4,7 @@ var useStateMachine = function (_a) {
     var init = _a.init, states = _a.states;
     var _b = useState(states[init !== null && init !== void 0 ? init : 0]), currentState = _b[0], setState = _b[1]; //init state
     var _c = useState(null), previous = _c[0], setPrevious = _c[1];
+    var _d = useState(null), selectedValue = _d[0], setSelectedValue = _d[1];
     var autocompleteContext = useContext(AutocompleteProContext);
     useEffect(function () {
         console.log("Current State: ", currentState);
@@ -51,7 +52,7 @@ var useStateMachine = function (_a) {
     };
     var data = function () {
         if (typeof currentState.value === 'function') {
-            return currentState.value(previous, currentState);
+            return currentState.value(previous, selectedValue);
         }
         return currentState.value;
     };
@@ -60,7 +61,8 @@ var useStateMachine = function (_a) {
         data: data,
         change: change,
         state: currentState,
-        reset: reset
+        reset: reset,
+        updateSelected: setSelectedValue
     };
 };
 export default useStateMachine;

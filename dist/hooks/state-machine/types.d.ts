@@ -2,7 +2,7 @@ export declare type Field = {
     value: string;
     id: number;
 };
-export declare type ValueFunction = (previous: State | null, selected: State) => Field[];
+export declare type ValueFunction = (previous: State | null, selected: unknown) => Field[];
 export declare type State = {
     type: string;
     value: Field[] | ValueFunction;

@@ -15,11 +15,13 @@ interface ReturnUseStateMachine {
   change: (selectedValue: string) => void;
   state: State;
   reset: () => void;
+  updateSelected: React.Dispatch<unknown>;
 }
 
 const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMachine => {
   const [currentState, setState] = useState<State>(states[init ?? 0]); //init state
   const [previous, setPrevious] = useState<State | null>(null);
+  const [selectedValue, setSelectedValue] = useState<unknown | null>(null);
 
   const autocompleteContext = useContext(AutocompleteProContext);
 
@@ -73,7 +75,7 @@ const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMa
 
   const data = (): Field[] => {
     if(typeof currentState.value === 'function'){
-      return currentState.value(previous, currentState);
+      return currentState.value(previous, selectedValue);
     }
     return currentState.value;
   }
@@ -83,7 +85,8 @@ const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMa
     data,
     change,
     state: currentState,
-    reset
+    reset,
+    updateSelected: setSelectedValue
   };
 }
 

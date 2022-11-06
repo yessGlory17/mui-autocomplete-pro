@@ -28,7 +28,7 @@ import { useStateMachine } from "../hooks";
 var AutocompletePro = function (_a) {
     var _b;
     var states = _a.states, onChange = _a.onChange, params = __rest(_a, ["states", "onChange"]);
-    var _c = useStateMachine(states), data = _c.data, nextState = _c.nextState, change = _c.change, reset = _c.reset, state = _c.state;
+    var _c = useStateMachine(states), data = _c.data, nextState = _c.nextState, change = _c.change, reset = _c.reset, state = _c.state, updateSelected = _c.updateSelected;
     var _d = useState(""), fullValue = _d[0], setValue = _d[1];
     useEffect(function () {
         if (fullValue === '') {
@@ -48,6 +48,7 @@ var AutocompletePro = function (_a) {
         }, onChange: function (event, value) {
             setValue("".concat(fullValue, " ").concat(value));
             onChange === null || onChange === void 0 ? void 0 : onChange("".concat(fullValue, " ").concat(value));
+            updateSelected(value);
             if (state.onSelectedCondition) {
                 change === null || change === void 0 ? void 0 : change(value);
             }
