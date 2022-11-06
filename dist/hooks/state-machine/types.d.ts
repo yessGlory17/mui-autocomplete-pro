@@ -2,11 +2,12 @@ export declare type Field = {
     value: string;
     id: number;
 };
-export declare type ValueFunction = (previous: State) => Field[];
+export declare type ValueFunction = (previous: State | null, selected: State) => Field[];
 export declare type State = {
     type: string;
-    value: Field[];
+    value: Field[] | ValueFunction;
     callback?: () => void;
-    condition?: (previous: State, selectedValue: string) => string;
+    onSelectedCondition?: (previous: State, selectedValue: string) => string;
+    onChangeCondition?: (previous: State, value: string) => string;
     next: string;
 };

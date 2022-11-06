@@ -9,8 +9,8 @@ export type AutocompleteProProps = {
   //change?:(selectedValue: string) => void;
 }
 
-const AutocompletePro = ({states, onChange }: AutocompleteProProps) => {
-    const { data, nextState, change, reset} = useStateMachine(states);
+const AutocompletePro = ({states, onChange, ...params }: AutocompleteProProps) => {
+    const { data, nextState, change, reset, state} = useStateMachine(states);
     const [fullValue, setValue] = useState<string>("");
 
     useEffect(()=>{
@@ -18,6 +18,13 @@ const AutocompletePro = ({states, onChange }: AutocompleteProProps) => {
         reset();
       }
     },[fullValue])
+
+    const options = (): Field[] => {
+      if(typeof data === 'function'){
+        return data();
+      }
+      return data;
+    }
 
     return (
       <Autocomplete
@@ -31,15 +38,20 @@ const AutocompletePro = ({states, onChange }: AutocompleteProProps) => {
         ) => {
           //changeCondition(value);
           //nextState();
+          onChange?.(`${fullValue} ${value}`)
         }}
         onChange={(event, value) => {
           setValue(`${fullValue} ${value}`);
           onChange?.(`${fullValue} ${value}`)
-          //change?.(value);
-          nextState();
+          if(state.onSelectedCondition){
+            change?.(value);
+          }else{
+            nextState();
+          }
         }}
-        options={data ? data.map((item) => item.value) : []}
+        options={options().map((item) => item.value) ?? []}
         renderInput={(params) => <TextField {...params} />}
+        {...params}
       />
     );
 }

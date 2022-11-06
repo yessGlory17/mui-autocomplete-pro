@@ -38,8 +38,8 @@ var useStateMachine = function (_a) {
     };
     var change = function (selectedValue) {
         var _a;
-        if (previous && (currentState === null || currentState === void 0 ? void 0 : currentState.condition)) {
-            setState(findState((_a = currentState === null || currentState === void 0 ? void 0 : currentState.condition) === null || _a === void 0 ? void 0 : _a.call(currentState, previous, selectedValue)));
+        if (previous && (currentState === null || currentState === void 0 ? void 0 : currentState.onSelectedCondition)) {
+            setState(findState((_a = currentState === null || currentState === void 0 ? void 0 : currentState.onSelectedCondition) === null || _a === void 0 ? void 0 : _a.call(currentState, previous, selectedValue)));
         }
         else {
             nextState();
@@ -49,9 +49,15 @@ var useStateMachine = function (_a) {
         setState(states[0]);
         setPrevious(null);
     };
+    var data = function () {
+        if (typeof currentState.value === 'function') {
+            return currentState.value(previous, currentState);
+        }
+        return currentState.value;
+    };
     return {
         nextState: nextState,
-        data: currentState.value,
+        data: data,
         change: change,
         state: currentState,
         reset: reset

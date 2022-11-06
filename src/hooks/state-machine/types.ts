@@ -3,12 +3,13 @@ export type Field = {
     id: number;
 }
 
-export type ValueFunction = (previous: State) => Field[];
+export type ValueFunction = (previous: State | null, selected: State) => Field[];
 
 export type State = {
     type: string;
-    value: Field[];
+    value: Field[] | ValueFunction;
     callback?:() => void;
-    condition?:(previous:State, selectedValue: string) => string;
+    onSelectedCondition?:(previous:State, selectedValue: string) => string;
+    onChangeCondition?: (previous: State, value: string) => string;
     next: string;
 }

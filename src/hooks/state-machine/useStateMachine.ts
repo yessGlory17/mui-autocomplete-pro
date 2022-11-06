@@ -1,15 +1,17 @@
 import { useContext, useEffect, useState } from "react";
 import { AutocompleteProContext } from "../../context";
-import { Field, State } from "./types";
+import { Field, State, ValueFunction } from "./types";
 
 export type useStateMachineProps = {
     init: number;
     states: State[];
 }
 
+type DataGetter = () => Field[];
+
 interface ReturnUseStateMachine {
   nextState: () => void;
-  data: Field[];
+  data: Field[] | DataGetter;
   change: (selectedValue: string) => void;
   state: State;
   reset: () => void;
@@ -57,8 +59,8 @@ const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMa
   };
 
   const change = (selectedValue: string) => {
-    if (previous && currentState?.condition) {
-      setState(findState(currentState?.condition?.(previous, selectedValue)));
+    if (previous && currentState?.onSelectedCondition) {
+      setState(findState(currentState?.onSelectedCondition?.(previous, selectedValue)));
     } else {
       nextState();
     }
@@ -69,9 +71,16 @@ const useStateMachine = ({init, states}: useStateMachineProps): ReturnUseStateMa
     setPrevious(null);
   }
 
+  const data = (): Field[] => {
+    if(typeof currentState.value === 'function'){
+      return currentState.value(previous, currentState);
+    }
+    return currentState.value;
+  }
+
   return {
     nextState,
-    data: currentState.value,
+    data,
     change,
     state: currentState,
     reset

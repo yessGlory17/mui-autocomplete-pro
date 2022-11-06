@@ -4,5 +4,5 @@ export declare type AutocompleteProProps = {
     states: useStateMachineProps;
     onChange?: (value: string) => void;
 };
-declare const AutocompletePro: ({ states, onChange }: AutocompleteProProps) => JSX.Element;
+declare const AutocompletePro: ({ states, onChange, ...params }: AutocompleteProProps) => JSX.Element;
 export default AutocompletePro;
